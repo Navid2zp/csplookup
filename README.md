@@ -39,7 +39,7 @@ Look up with time limit:
 // aborts if lookup took more than 10ms
 response, err := client.LookupWithTL("4.2.2.4", time.Millisecond * 10)
 
-if err != TimeLimitReached {
+if err != csplookup.TimeLimitReached {
     // something went wrong with request itself
     panic(err)
 } else {
