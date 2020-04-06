@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-    client := NewClient("YOUR_API_KEY")
+    client := csplookup.NewClient("YOUR_API_KEY")
     response, err = client.Lookup("4.2.2.4")
     
     if err != nil {
