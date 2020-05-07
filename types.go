@@ -52,6 +52,8 @@ type IPLookup struct {
 			IsAnonymousProxy    bool `json:"IsAnonymousProxy"`
 			IsSatelliteProvider bool `json:"IsSatelliteProvider"`
 		} `json:"Traits"`
+		AutonomousSystemNumber       uint   `json:"AutonomousSystemNumber"`
+		AutonomousSystemOrganization string `json:"AutonomousSystemOrganization"`
 	} `json:"Result"`
 }
 
