@@ -34,9 +34,9 @@ func (c *Client) getHeaders() map[string]string {
 func (c *Client) Lookup(ip string) (*IPLookup, error) {
 	var result IPLookup
 	req := easyreq.Request{
-		URL:              fmt.Sprintf(LookupEndPoint, ip),
-		Headers:          c.getHeaders(),
-		Method:           "GET",
+		URL:     fmt.Sprintf(LookupEndPoint, ip),
+		Headers: c.getHeaders(),
+		Method:  "GET",
 		//ResponseDataType: "json",
 		//SaveResponseTo:   &result,
 	}
@@ -44,11 +44,15 @@ func (c *Client) Lookup(ip string) (*IPLookup, error) {
 	if err != nil {
 		return &result, err
 	}
+	body, err := res.ReadBody()
+	fmt.Println("error:", err)
+	fmt.Println(string(body))
 	err = res.ToJson(&result)
 	if err != nil {
-		body, err := res.ReadBody()
-		fmt.Println("error:", err)
-		fmt.Println(string(body))
+		fmt.Println(err)
+		//body, err := res.ReadBody()
+		//fmt.Println("error:", err)
+		//fmt.Println(string(body))
 	}
 	defer res.CloseBody()
 	return &result, err
