@@ -40,7 +40,11 @@ func (c *Client) Lookup(ip string) (*IPLookup, error) {
 		ResponseDataType: "json",
 		SaveResponseTo:   &result,
 	}
-	_, err := req.Make()
+	res, err := req.Make()
+	if err != nil {
+		return &result, err
+	}
+	defer res.CloseBody()
 	return &result, err
 }
 

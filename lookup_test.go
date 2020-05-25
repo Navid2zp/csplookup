@@ -32,6 +32,26 @@ func TestTestResponseTime(t *testing.T) {
 }
 
 func TestLookup(t *testing.T) {
+	client := NewClient("679e15c749055f5e6fa15fa458728c1307afa782")
+
+	response, err := client.Lookup("1.1.1.1")
+	if err != nil {
+		if err != TimeLimitReached {
+			t.Error(err)
+		} else {
+			fmt.Println("it took too long!")
+		}
+	}
+
+	response, err = client.Lookup("4.2.2.4")
+	if err != nil {
+		t.Error(err)
+	}
+
+	fmt.Println(response)
+}
+
+func TestLookupWithTL(t *testing.T) {
 	client := NewClient("YOUR_API_KEY")
 
 	response, err := client.LookupWithTL("4.2.2.4", time.Millisecond*2)
