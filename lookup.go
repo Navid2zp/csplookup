@@ -1,6 +1,7 @@
 package csplookup
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/Navid2zp/easyreq"
 	"github.com/Navid2zp/httptracer"
@@ -45,11 +46,11 @@ func (c *Client) Lookup(ip string) (*IPLookup, error) {
 		return &result, err
 	}
 	body, err := res.ReadBody()
-	fmt.Println("error:", err)
-	fmt.Println(string(body))
-	err = res.ToJson(&result)
+	fmt.Println("ReadBody error:", err)
+	err = json.Unmarshal(body, &result)
+	//err = res.ToJson(&result)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(string(body))
 		//body, err := res.ReadBody()
 		//fmt.Println("error:", err)
 		//fmt.Println(string(body))
