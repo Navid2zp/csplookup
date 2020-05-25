@@ -37,12 +37,18 @@ func (c *Client) Lookup(ip string) (*IPLookup, error) {
 		URL:              fmt.Sprintf(LookupEndPoint, ip),
 		Headers:          c.getHeaders(),
 		Method:           "GET",
-		ResponseDataType: "json",
-		SaveResponseTo:   &result,
+		//ResponseDataType: "json",
+		//SaveResponseTo:   &result,
 	}
 	res, err := req.Make()
 	if err != nil {
 		return &result, err
+	}
+	err = res.ToJson(&result)
+	if err != nil {
+		body, err := res.ReadBody()
+		fmt.Println("error:", err)
+		fmt.Println(string(body))
 	}
 	defer res.CloseBody()
 	return &result, err
